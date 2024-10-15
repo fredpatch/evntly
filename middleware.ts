@@ -1,17 +1,10 @@
 import { authMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 export default authMiddleware({
-  publicRoutes: [
-    "/",
-    "/events/:id",
-    "/api/webhook/clerk",
-    "/api/webhook/stripe",
-    "/api/uploadthing",
-  ],
+  publicRoutes: ["/", "/events/:id"],
   ignoredRoutes: [
-    "/api/webhook/clerk",
+    "/api/webhook/clerk", // Ignore webhooks because they don't require authentication
     "/api/webhook/stripe",
-    "/api/uploadthing",
   ],
 });
 
