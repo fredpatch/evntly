@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider signInFallbackRedirectUrl={"/"}>
       <html lang="en">
         <body className={`${poppins.variable} ${poppins.variable} antialiased`}>
           {children}
