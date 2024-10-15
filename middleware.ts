@@ -5,7 +5,12 @@ import {
 } from "@clerk/nextjs/server";
 
 // Define public routes
-const isPublicRoute = createRouteMatcher(["/", "/events/:id"]);
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/events/:id",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+]);
 
 // Define ignored routes (e.g., webhooks)
 const isIgnoredRoute = createRouteMatcher([
@@ -20,7 +25,7 @@ export default clerkMiddleware((auth, req) => {
   }
 
   // Protect all other routes except public ones
-  if (isPublicRoute(req)) {
+  if (!isPublicRoute(req)) {
     auth().protect(); // Automatically handles redirects to sign-in if user is not authenticated
   }
 });
