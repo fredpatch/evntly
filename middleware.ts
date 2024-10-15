@@ -1,19 +1,27 @@
-import { authMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import {
+  // authMiddleware,
+  clerkMiddleware,
+  createRouteMatcher,
+} from "@clerk/nextjs/server";
 
-export default authMiddleware({
-  publicRoutes: ["/", "/events/:id"],
-  ignoredRoutes: [
-    "/api/webhook/clerk", // Ignore webhooks because they don't require authentication
-    "/api/webhook/stripe",
-  ],
-});
+// export default authMiddleware({
+//   publicRoutes: ["/", "/events/:id"],
+//   ignoredRoutes: [
+//     "/api/webhook/clerk", // Ignore webhooks because they don't require authentication
+//     "/api/webhook/stripe",
+//   ],
+// });
 
-// const isPublicRoute = createRouteMatcher([
-// "/sign-in(.*)",
-// "/sign-up(.*)",
-// "/",
-// "/events/:id",
-// ]);
+const tenantKeys = {
+  tenant1: { publishableKey: process.env.PUBLISHABLE_KEY, secretKey: process.env.SECRET_KEY },
+};
+
+const isPublicRoute = createRouteMatcher([
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/events/:id",
+  "/",
+]);
 
 // const ignoredRoutes = createRouteMatcher([
 //   "/api/webhook/clerk",
@@ -21,11 +29,11 @@ export default authMiddleware({
 //   "/api/uploadthing",
 // ]);
 
-// export default clerkMiddleware((auth, request) => {
-//   if (!isPublicRoute(request)) {
-//     auth().protect();
-//   }
-// });
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect();
+  }
+});
 
 export const config = {
   matcher: [
