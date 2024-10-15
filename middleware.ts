@@ -12,9 +12,6 @@ import {
 //   ],
 // });
 
-const tenantKeys = {
-  tenant1: { publishableKey: process.env.PUBLISHABLE_KEY, secretKey: process.env.SECRET_KEY },
-};
 
 const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",

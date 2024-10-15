@@ -62,12 +62,22 @@ export async function POST(req: Request) {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
 
+    console.log(
+      "User created",
+      id,
+      email_addresses,
+      image_url,
+      first_name,
+      last_name,
+      username
+    );
+
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
       username: username!,
-      firstname: first_name ?? "",
-      lastname: last_name ?? "",
+      firstName: first_name ?? "",
+      lastName: last_name ?? "",
       photo: image_url,
     };
 
@@ -88,8 +98,8 @@ export async function POST(req: Request) {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
     const user = {
-      firstname: first_name!,
-      lastname: last_name ?? "",
+      firstName: first_name!,
+      lastName: last_name ?? "",
       username: username ?? "",
       photo: image_url,
     };
