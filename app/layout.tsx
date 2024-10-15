@@ -24,7 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider signInFallbackRedirectUrl={"/"}>
+    <ClerkProvider
+      signUpFallbackRedirectUrl={"/"}
+      signInFallbackRedirectUrl={"/"}
+      signInForceRedirectUrl={"/"}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
       <html lang="en">
         <body className={`${poppins.variable} ${poppins.variable} antialiased`}>
           {children}
