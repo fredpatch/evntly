@@ -20,7 +20,7 @@ export default clerkMiddleware((auth, req) => {
   }
 
   // Protect all other routes except public ones
-  if (!isPublicRoute(req)) {
+  if (isPublicRoute(req)) {
     auth().protect(); // Automatically handles redirects to sign-in if user is not authenticated
   }
 });
