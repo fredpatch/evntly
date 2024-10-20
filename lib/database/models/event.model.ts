@@ -17,8 +17,8 @@ export interface IEvent extends Document {
   };
   organizer: {
     _id: string;
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
   };
 }
 

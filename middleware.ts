@@ -10,12 +10,14 @@ const isPublicRoute = createRouteMatcher([
   "/events/:id",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/api/uploadthing",
 ]);
 
 // Define ignored routes (e.g., webhooks)
 const isIgnoredRoute = createRouteMatcher([
   "/api/webhook/clerk",
   "/api/webhook/stripe",
+  "/api/uploadthing",
 ]);
 
 export default clerkMiddleware((auth, req) => {
