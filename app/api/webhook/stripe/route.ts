@@ -3,26 +3,30 @@ import { NextResponse } from "next/server";
 import { createOrder } from "@/lib/actions/order.action";
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  const body = await request.clone().text(); // get the raw body as a string
 
-  const sig = request.headers.get("Stripe-Signature") as string;
+  const sig = request.headers.get("stripe-signature") as string;
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
   let event;
 
   try {
+    // Construct the Stripe event using the raw body
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
   } catch (error) {
-    return NextResponse.json({
-      message: "Webhook error",
-      error: error,
-    });
+    return NextResponse.json(
+      {
+        message: "Webhook error",
+        error: error,
+      },
+      { status: 400 }
+    );
   }
 
   // get the ID and type
   const eventType = event.type;
 
-  // Create
+  // Handle checkout session completion
   if (eventType === "checkout.session.completed") {
     const { id, amount_total, metadata } = event.data.object;
 
