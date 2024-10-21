@@ -26,6 +26,8 @@ export const FileUploader = ({
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+
+    // @ts-ignore
     accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
   });
 
