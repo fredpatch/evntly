@@ -38,7 +38,6 @@ const Checkout = ({ event, userId }: CheckoutProps) => {
     };
 
     await checkoutOrder(order);
-    console.log("CHECKOUT!");
   };
   return (
     <form action={onCheckout} method="post">
